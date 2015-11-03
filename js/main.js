@@ -26,7 +26,8 @@ var page = {
   },
 
   loadSideBar: function() {
-    
+    siderTempl = _.template(sideBarUser);
+
   },
 
   createUser: function() {
