@@ -1,8 +1,15 @@
+body {
+  padding-left: 0; }
+
 .col-md-8 {
   background-color: red; }
 
 .col-md-4 {
-  background-color: blue; }
+  background-color: blue;
+  position: absolute;
+  width: 12%;
+  min-height: 50em;
+  margin-left: 0; }
 
 #loginContainer {
   border: 2px, black;
