@@ -1,7 +1,18 @@
+///////////////// general elements ///////////
+body {
+  padding-left: 0;
+}
+
+//////////////// main classes ////////////////
 .col-md-8 {
   background-color: red;
 }
 
+///////////////// side bar /////////////////
 .col-md-4 {
   background-color: blue;
+  position: absolute;
+  width: 12%;
+  min-height: 50em;
+  margin-left: 0;
 }

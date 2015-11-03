@@ -17,7 +17,17 @@ var page = {
 
   initEvents: function () {
 
-  }
+  },
 
+  loadSideBar: function() {
+
+  },
+
+  createUser: function() {
+
+  },
+  deleteUser: function() {
+
+  }
 
 };
