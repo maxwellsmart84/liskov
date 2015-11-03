@@ -4,6 +4,8 @@ $(document).ready(function () {
 
 var page = {
 
+  url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
+
   init: function () {
     page.initStyling();
     page.initEvents();
