@@ -20,7 +20,14 @@ body {
 #loginContainer {
   border: 2px, black;
   background-color: white;
+  position: relative;
+  left:300px;
+  top:150px;
+  a {
+    float: right;
+  }
 }
+
 
 
 
