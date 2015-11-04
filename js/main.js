@@ -89,29 +89,30 @@ var page = {
   },
 
     // DOM DELETE ANY MESSAGE
-    deleteEventMessage: function (event) {
-      event.preventDefault();
-      var messageId = $(this).closest('li').data('messageid');
-      $(this).closest('li').remove();
-      page.deleteMessage(messageId);
-      page.loadMessages();
-      page.deleteMessage();
-
-      $('.col-md-8').on('click', 'button[type="submit"]', function () {
-        $(this).parent('li').remove();
-      });
-
-      deleteMessage: function () {
-      $.ajax ({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
-        method: 'DELETE',
-        success: function (res) {
-          console.log("SUCCESS"),
-        },
-        failure: function () {
-        },
-      })
-    },
+    // deleteEventMessage: function (event) {
+    //   event.preventDefault();
+    //   var messageId = $(this).closest('li').data('messageid');
+    //   $(this).closest('li').remove();
+    //   page.deleteMessage(messageId);
+    //   page.loadMessages();
+    //   page.deleteMessage();
+    //
+    //   $('.col-md-8').on('click', 'button[type="submit"]', function () {
+    //     $(this).parent('li').remove();
+    //   });
+    // },
+    //   deleteMessage: function () {
+    //   $.ajax ({
+    //     url: page.url,
+    //     method: 'DELETE',
+    //     success: function (res) {
+    //       console.log("SUCCESS");
+    //     },
+    //     failure: function () {
+    //       console.log("FAILURE");
+    //     }
+    //   });
+    // },
   returnLogin: function (){
     $(".container").on("click", "#loginReturn", function(event){
         event.preventDefault;
@@ -119,6 +120,7 @@ var page = {
         $.ajax({
           method:'GET',
           success: function (data){
+            console.log("SUCCESS");
             userNameData = data;
             for (var i= 0; i < userNameData.length; i++){
               if (userNameData[i].username === userName){
@@ -136,6 +138,7 @@ var page = {
                   }
                 });
               }
+            }
           }
         });
     });
