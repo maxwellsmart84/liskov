@@ -62,9 +62,10 @@ var page = {
     $('form').on('submit', function(event) {
       event.preventDefault();
       var newMessage = {
-        avatar: "http://www.fillmurray.com/200/300",
-        username: "Bill Murray",
-        content: $('textarea').val(),
+        avatar: $("input[name='avatar']").val(),
+        username: $("input[name='username']").val(),
+        email: $("input[name='email']").val(),
+        content: $('textarea').val()
       };
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
@@ -171,6 +172,7 @@ var page = {
       $("#loginReturn").addClass("hidden-class");
     });
   },
+
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
      event.preventDefault;
