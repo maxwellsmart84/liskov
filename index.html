@@ -6,9 +6,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <link rel="stylesheet" href="css/master.css" media="screen" title="no title" charset="utf-8">
   </head>
+<script type="text/html" id="test">
+  <li>
+    <img src='<%= avatar %>' /><h3><%= username %></h3>,
+    <p>"<%= content %>"</p><br>
+    <button type="submit" name="delete">Delete</button>
+  </li>
+</script>
+
   <body>
     <div class = "container">
       <div class="col-md-8" rel= "chatbox">
+        <form>
+          <textarea name="chat" rows="5" cols="30" placeholder="Enter message here..."></textarea>
+          <input type="submit" name="submit" value="submit">
+        </form>
       </div>
       <div class="col-md-4" rel="sidebar">
         <ul>
