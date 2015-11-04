@@ -86,8 +86,5 @@ var page = {
     console.log(allData);
   },
 
-  displayUser: function() {
-    page.
-  }
-
+  
 };
