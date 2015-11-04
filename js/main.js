@@ -144,12 +144,7 @@ var page = {
     page.retrieveUser();
     siderTempl = _.template(templates.sideBarUser);
     console.log(allData);
-  createUser: function() {
 
-
-  },
-
-  deleteUser: function() {
 
 
   },
