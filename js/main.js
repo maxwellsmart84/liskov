@@ -150,9 +150,8 @@ var page = {
   },
 
   setStatusActive: function (){
-    var
     $.ajax({
-      url:page.urlU + "/" + ,
+      url:page.urlU, 
       method:"PUT",
       data:"status=true",
       success: function(data){
