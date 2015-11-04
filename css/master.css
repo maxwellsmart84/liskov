@@ -35,5 +35,11 @@ h1 {
   width: 50%;
   color: white; }
 
+#loginSubmit {
+  margin: 5% 5% 1% 25%;
+  background-color: #005CB8;
+  width: 50%;
+  color: white; }
+
 .hidden-class {
   display: none; }
