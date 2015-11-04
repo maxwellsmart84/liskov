@@ -134,6 +134,7 @@ var page = {
               if (userNameData[i].username === userName){
                 $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
                 $(".col-md-4").removeClass("hidden-class");
+                $('.navbar-default').removeClass("hidden-class");
                 $('.messageWriter').removeClass("hidden-class");
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
