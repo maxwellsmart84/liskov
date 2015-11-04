@@ -26,6 +26,8 @@ var page = {
   initEvents: function () {
     page.submitMessage();
     page.deleteMessage();
+    page.returnLogin();
+    page.newUserEvent();
   },
 
     // AJAX - LOAD OLD MESSAGES
@@ -113,6 +115,8 @@ var page = {
     //     }
     //   });
     // },
+
+    //RETURNING USER LOGIN
   returnLogin: function (){
     $(".container").on("click", "#loginReturn", function(event){
         event.preventDefault();
@@ -144,6 +148,14 @@ var page = {
     });
   },
 
+  newUserEvent: function(){
+    $(".container").on("click", "#signUp", function(event){
+      $("#inputEmail").removeClass("hidden-class");
+      $("#inputAvatar").removeClass("hidden-class");
+      $("#loginSubmit").removeClass("hidden-class");
+      $("#loginReturn").addClass("hidden-class");
+    });
+  },
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
      event.preventDefault;
