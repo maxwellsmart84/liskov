@@ -32,7 +32,7 @@ var page = {
       var $submitBtn = $(this);//WASNT SURE IF I NEEDED THIS
       $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
       $(".col-md-4").removeClass("hidden-class");
-      $(".col.md-12").addClass("hidden-class");
+      $("#loginContainer").addClass("hidden-class");
       var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
       var userEmail = $("input[name='email']").val();
       var userAvatar = $("input[name='avatar']").val();
