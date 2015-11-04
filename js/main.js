@@ -23,7 +23,9 @@ var page = {
   },
 
   initEvents: function () {
+
     // SUBMIT NEW MESSAGE
+    submitMessage: function () {
     var messageData = []
     $('form').on('submit', function(event) {
       event.preventDefault();
@@ -37,21 +39,25 @@ var page = {
       $('textarea').val('');
 
       // AJAX PUSH MESSAGE TO SERVER
-    $.ajax({
-      url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
-      method: 'POST',
-      data: newMessage,
-      success: function() {
-        console.log("SUCCESS");
-      },
-      failure: function () {
-        console.log("FAILURE");
-      }
-    })
-});
+      $.ajax({
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+        method: 'POST',
+        data: newMessage,
+        success: function() {
+          console.log("SUCCESS");
+        },
+        failure: function () {
+          console.log("FAILURE");
+        }
+      })
+     }
+    });
+
     // DELETE ANY MESSAGE
+    deleteMessage: function () {
     $('.col-md-8').on('click', 'button[type="submit"]', function () {
       $(this).parent('li').remove();
+      }
     });
 
   },
