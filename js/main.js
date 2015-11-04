@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
+
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -22,8 +23,8 @@ var page = {
   },
 
   initEvents: function () {
+    // SUBMIT NEW MESSAGE
     var messageData = []
-
     $('form').on('submit', function(event) {
       event.preventDefault();
       var newMessage = {
@@ -36,21 +37,20 @@ var page = {
       $('textarea').val('');
     });
 
-    $('li').on('click', 'button', function () {
-
-    })
+    // DELETE ANY MESSAGE
+    $('.col-md-8').on('click', 'button[type="submit"]', function () {
+      $(this).parent('li').remove();
+    });
 
   },
 
+    // FUNCTION TO LOAD TEMPLATES
   loadTemplate: function ($el, data, tmpl) {
     var template = _.template(tmpl);
     var html = template(data);
     $el.prepend(html);
   },
 
-  deleteMessage: function () {
-
-  }
 
     page.loginSub();
 
