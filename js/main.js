@@ -124,7 +124,7 @@ var page = {
     //RETURNING USER LOGIN
   returnLogin: function (){
     $(".container").on("click", "#loginReturn", function(event){
-        event.preventDefault;
+        event.preventDefault();
         var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
         $.ajax({
           method:'GET',
