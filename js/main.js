@@ -16,6 +16,7 @@ var page = {
   init: function () {
     page.initStyling();
     page.initEvents();
+    page.loginSub();
   },
 
   initStyling: function () {
@@ -73,10 +74,6 @@ var page = {
   },
 
 
-    page.loginSub();
-
-  },
-
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
      event.preventDefault;
@@ -123,13 +120,12 @@ var page = {
   retrieveUser: function() {
     ///call this variable after the function runs///
     userObj = {};
-    allData = [];
 
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function(data) {
-        allData = data;
+        console.log(data);
         userObj = data[uindex];
       }
     });
@@ -138,7 +134,7 @@ var page = {
   loadSideBar: function() {
     page.retrieveUser();
     siderTempl = _.template(templates.sideBarUser);
-    console.log(allData);
+    console.log(data);
   },
 
 };
