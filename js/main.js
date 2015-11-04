@@ -3,7 +3,6 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
-
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -39,11 +38,12 @@ var page = {
         content: $('textarea').val(),
       };
       messageData.push(newMessage);
-      page.loadTemplate($('.col-md-8'), newMessage, $('#test').html());
-      $('textarea').val('');
+        var MessageTmpl = _.template(templates.message);
+        var html = MessageTmpl(newMessage);
+        $('.col-md-8').prepend(html);
 
       // AJAX PUSH MESSAGE TO SERVER
-      $.ajax({
+      $.ajax ({
         url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
         method: 'POST',
         data: newMessage,
@@ -52,7 +52,7 @@ var page = {
         },
         failure: function () {
           console.log("FAILURE");
-        }
+        },
       })
     });
   },
@@ -62,6 +62,13 @@ var page = {
       $(this).parent('li').remove();
     });
   },
+
+    // DELETE ANY MESSAGE
+    deleteMessage: function () {
+      $('.col-md-8').on('click', 'button[type="submit"]', function () {
+        $(this).parent('li').remove();
+      });
+    },
 
     // FUNCTION TO LOAD TEMPLATES
   loadTemplate: function ($el, data, tmpl) {
@@ -97,13 +104,41 @@ var page = {
            console.log("FAILURE!!!");
          }
        });
+       page.loadSideBar();
+   });
+ },
+
+ retrieveUser: function() {
+   ///call this variable after the function runs///
+   userObj = {};
+
+   $.ajax({
+     url: page.url,
+     method: 'GET',
+     success: function(data) {
+       userObj = data[uindex];
+     }
    });
  },
 
   loadSideBar: function() {
+    ///call this variable after the function runs///
+    allUsers = [];
 
+    $.ajax({
+      url: page.url,
+      method: 'GET',
+      success: function(data) {
+        allUsers = data;
+        var sideU = _.template(templates.sideBarUser);
+
+        for (i = 0; i < allUsers.length; i++) {
+          sider = sideU(allUsers[i]);
+          $('#sideList').append(sider);
+        }
+      }
+    });
   },
-
 
   createUser: function() {
 
@@ -111,25 +146,6 @@ var page = {
   },
 
   deleteUser: function() {
-
-  },
-
-  retrieveUser: function() {
-    ///call this variable after the function runs///
-    userObj = {};
-    var allUsers;
-
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function(data) {
-        allUsers = data;
-        userObj = data[uindex];
-      }
-    });
-  },
-
-  loadSideBar: function() {
 
   },
 
