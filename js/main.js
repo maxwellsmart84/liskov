@@ -23,6 +23,9 @@ var page = {
   },
 
   initEvents: function () {
+    submitMessage();
+    deleteMessage();
+  },
 
     // SUBMIT NEW MESSAGE
     submitMessage: function () {
@@ -60,7 +63,7 @@ var page = {
       }
     });
 
-  },
+
 
     // FUNCTION TO LOAD TEMPLATES
   loadTemplate: function ($el, data, tmpl) {
