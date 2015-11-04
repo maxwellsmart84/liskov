@@ -3,7 +3,6 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
-
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -16,7 +15,6 @@ var page = {
   init: function () {
     page.initStyling();
     page.initEvents();
-    page.loginSub();
   },
 
   initStyling: function () {
@@ -24,54 +22,9 @@ var page = {
   },
 
   initEvents: function () {
-    page.submitMessage();
-    page.deleteMessage();
+    page.loginSub();
+
   },
-
-    // SUBMIT NEW MESSAGE
-    submitMessage: function () {
-    var messageData = []
-    $('form').on('submit', function(event) {
-      event.preventDefault();
-      var newMessage = {
-        avatar: "http://www.fillmurray.com/200/300",
-        username: "Bill Murray",
-        content: $('textarea').val(),
-      };
-      messageData.push(newMessage);
-        var MessageTmpl = _.template(templates.message);
-        var html = MessageTmpl(newMessage);
-        $('.col-md-8').prepend(html);
-
-      // AJAX PUSH MESSAGE TO SERVER
-      $.ajax ({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
-        method: 'POST',
-        data: newMessage,
-        success: function() {
-          console.log("SUCCESS");
-        },
-        failure: function () {
-          console.log("FAILURE");
-        },
-      })
-    });
-  },
-
-    // DELETE ANY MESSAGE
-    deleteMessage: function () {
-      $('.col-md-8').on('click', 'button[type="submit"]', function () {
-        $(this).parent('li').remove();
-      });
-    },
-
-    // FUNCTION TO LOAD TEMPLATES
-  loadTemplate: function ($el, data, tmpl) {
-    var template = _.template(tmpl);
-    var html = template(data);
-    $el.prepend(html);
-  },
-
 
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
@@ -103,7 +56,6 @@ var page = {
  },
 
 
-
   createUser: function() {
 
 
@@ -116,12 +68,13 @@ var page = {
   retrieveUser: function() {
     ///call this variable after the function runs///
     userObj = {};
+    allData = [];
 
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function(data) {
-        console.log(data);
+        allData = data;
         userObj = data[uindex];
       }
     });
@@ -130,7 +83,11 @@ var page = {
   loadSideBar: function() {
     page.retrieveUser();
     siderTempl = _.template(templates.sideBarUser);
-    console.log(data);
+    console.log(allData);
   },
+
+  displayUser: function() {
+    page.
+  }
 
 };
