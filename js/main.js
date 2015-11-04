@@ -12,22 +12,47 @@ var page = {
 
   url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
 
+
   init: function () {
     page.initStyling();
     page.initEvents();
+    page.loginSub();
   },
 
   initStyling: function () {
-
+    page.loadMessages();
   },
 
   initEvents: function () {
-    page.loginSub();
     page.submitMessage();
     page.deleteMessage();
   },
 
-    // SUBMIT NEW MESSAGE
+    // AJAX - LOAD OLD MESSAGES
+    loadMessages: function() {
+      $.ajax({
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
+        method: 'GET',
+        success: function(mData) {
+          var MessageTmpl = _.template(templates.message);
+          _.each(mData, function (el, idx, arr) {
+            var oldMessages = {
+              avatar: el.avatar,
+              username: el.username,
+              content: el.content,
+              messageid: el._id
+            };
+            var html = MessageTmpl(oldMessages);
+            $('.col-md-8').prepend(html);
+          });
+        },
+        failure: function () {
+          console.log("FAILURE");
+        },
+      });
+    },
+
+    // DOM - SUBMIT NEW MESSAGE
     submitMessage: function () {
     var messageData = [];
     $('form').on('submit', function(event) {
@@ -42,9 +67,9 @@ var page = {
         var html = MessageTmpl(newMessage);
         $('.col-md-8').prepend(html);
 
-      // AJAX PUSH MESSAGE TO SERVER
+      // AJAX - SUBMIT NEW MESSAGE
       $.ajax ({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
         method: 'POST',
         data: newMessage,
         success: function() {
@@ -61,12 +86,67 @@ var page = {
     $('.col-md-8').on('click', 'button[type="submit"]', function () {
       $(this).parent('li').remove();
     });
+  },
 
+    // DOM DELETE ANY MESSAGE
+    // deleteEventMessage: function (event) {
+    //   event.preventDefault();
+    //   var messageId = $(this).closest('li').data('messageid');
+    //   $(this).closest('li').remove();
+    //   page.deleteMessage(messageId);
+    //   page.loadMessages();
+    //   page.deleteMessage();
+    //
+    //   $('.col-md-8').on('click', 'button[type="submit"]', function () {
+    //     $(this).parent('li').remove();
+    //   });
+    // },
+    //   deleteMessage: function () {
+    //   $.ajax ({
+    //     url: page.url,
+    //     method: 'DELETE',
+    //     success: function (res) {
+    //       console.log("SUCCESS");
+    //     },
+    //     failure: function () {
+    //       console.log("FAILURE");
+    //     }
+    //   });
+    // },
+  returnLogin: function (){
+    $(".container").on("click", "#loginReturn", function(event){
+        event.preventDefault;
+        var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
+        $.ajax({
+          method:'GET',
+          success: function (data){
+            console.log("SUCCESS");
+            userNameData = data;
+            for (var i= 0; i < userNameData.length; i++){
+              if (userNameData[i].username === userName){
+                $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
+                $(".col-md-4").removeClass("hidden-class");
+                $("#loginContainer").addClass("hidden-class");
+                var userNameDataIter = userNameData[i];
+                userNameDataIter.status = true;
+                $.ajax({
+                  url:page.urlU,
+                  method:"PUT",
+                  data:userNameDataIter,
+                  success: function(data2){
+                  console.log('SUCCESS WE THINK')
+                  }
+                });
+              }
+            }
+          }
+        });
+    });
   },
 
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
-     event.preventDefault();
+     event.preventDefault;
      var $submitBtn = $(this);//WASNT SURE IF I NEEDED THIS
      $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
      $(".col-md-4").removeClass("hidden-class");
@@ -80,7 +160,7 @@ var page = {
        avatar: userAvatar,
      });
        $.ajax({     //AJAX PUSH TO SERVER
-         url: page.url,
+         url: page.urlU,
          method:"POST",
          data: userLoginAdd,
          success: function (data){
@@ -93,15 +173,6 @@ var page = {
        page.loadSideBar();
    });
  },
-
-
-
-  createUser: function() {
-
-
-  },
-
-  deleteUser: function() {},
 
  retrieveUser: function() {
    ///call this variable after the function runs///
@@ -118,17 +189,12 @@ var page = {
 
   loadSideBar: function() {
     ///call this variable after the function runs///
-    userObj = {};
-    allData = [];
-
     allUsers = [];
 
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function(data) {
-        allData = data;
-        userObj = data[uindex];
         allUsers = data;
         var sideU = _.template(templates.sideBarUser);
 
@@ -140,14 +206,13 @@ var page = {
     });
   },
 
-  loadSideBar: function() {
-    page.retrieveUser();
-    siderTempl = _.template(templates.sideBarUser);
-    console.log(allData);
-
+  createUser: function() {
 
 
   },
 
+  deleteUser: function() {
+
+  },
 
 };
