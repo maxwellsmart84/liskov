@@ -10,3 +10,10 @@ body {
   width: 12%;
   min-height: 50em;
   margin-left: 0; }
+
+#loginContainer {
+  border: 2px, black;
+  background-color: white; }
+
+.hidden-class {
+  display: none; }
