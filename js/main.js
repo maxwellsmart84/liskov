@@ -67,7 +67,7 @@ var page = {
         username: userName,
         email: userEmail,
         content: $('textarea').val(),
-        messageid: el._id,
+        messageid: _id
       };
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
@@ -153,9 +153,6 @@ var page = {
     });
   },
 
-<<<<<<< HEAD
-
-=======
   newUserEvent: function(){
     $(".container").on("click", "#signUp", function(event){
       $("#inputEmail").removeClass("hidden-class");
@@ -164,7 +161,7 @@ var page = {
       $("#loginReturn").addClass("hidden-class");
     });
   },
->>>>>>> e5a665c1420a228ad4abf786c66af8f8b31245ed
+
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
      event.preventDefault;
