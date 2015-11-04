@@ -4,6 +4,6 @@ var templates = {
   ].join(""),
   message: [
     "<li><img src='<%= avatar %>' /><h3><%= username %></h3>",
-    "<p><%= message %></p></li>"
+    "<p><%= content %></p></li>"
   ].join("")
 };

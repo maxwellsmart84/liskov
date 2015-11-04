@@ -24,8 +24,8 @@ var page = {
   },
 
   initEvents: function () {
-    submitMessage();
-    deleteMessage();
+    page.submitMessage();
+    page.deleteMessage();
   },
 
     // SUBMIT NEW MESSAGE
@@ -39,11 +39,12 @@ var page = {
         content: $('textarea').val(),
       };
       messageData.push(newMessage);
-      page.loadTemplate($('.col-md-8'), newMessage, $('#test').html());
-      $('textarea').val('');
+        var MessageTmpl = _.template(templates.message);
+        var html = MessageTmpl(newMessage);
+        $('.col-md-8').prepend(html);
 
       // AJAX PUSH MESSAGE TO SERVER
-      $.ajax({
+      $.ajax ({
         url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
         method: 'POST',
         data: newMessage,
@@ -52,19 +53,17 @@ var page = {
         },
         failure: function () {
           console.log("FAILURE");
-        }
+        },
       })
-     }
     });
+  },
 
     // DELETE ANY MESSAGE
     deleteMessage: function () {
-    $('.col-md-8').on('click', 'button[type="submit"]', function () {
-      $(this).parent('li').remove();
-      }
-    });
-
-
+      $('.col-md-8').on('click', 'button[type="submit"]', function () {
+        $(this).parent('li').remove();
+      });
+    },
 
     // FUNCTION TO LOAD TEMPLATES
   loadTemplate: function ($el, data, tmpl) {
