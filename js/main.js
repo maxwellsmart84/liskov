@@ -3,6 +3,10 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
+var userName = $("input[name='username']").val();
+var userEmail = $("input[name='email']").val();
+var userAvatar = $("input[name='avatar']").val();
+
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -24,7 +28,6 @@ var page = {
 
   initEvents: function () {
     page.submitMessage();
-    page.deleteMessage();
   },
 
     // AJAX - LOAD OLD MESSAGES
@@ -57,9 +60,11 @@ var page = {
     $('form').on('submit', function(event) {
       event.preventDefault();
       var newMessage = {
-        avatar: "http://www.fillmurray.com/200/300",
-        username: "Bill Murray",
+        avatar: userAvatar,
+        username: userName,
+        email: userEmail,
         content: $('textarea').val(),
+        messageid: el._id,
       };
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
