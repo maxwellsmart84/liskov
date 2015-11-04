@@ -11,7 +11,8 @@ uindex = 0;
 var page = {
 
   url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
-
+  urlU: "http://tiny-tiny.herokuapp.com/collections/chatorexU",
+  urlM: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
 
   init: function () {
     page.initStyling();
@@ -67,7 +68,7 @@ var page = {
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
         var html = MessageTmpl(newMessage);
-        $('.col-md-8').prepend(html);
+        $('.col-md-8').append(html);
 
       // AJAX - SUBMIT NEW MESSAGE
       $.ajax ({
@@ -130,6 +131,7 @@ var page = {
               if (userNameData[i].username === userName){
                 $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
                 $(".col-md-4").removeClass("hidden-class");
+                $('.messageWriter').removeClass("hidden-class");
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
                 userNameDataIter.status = true;
@@ -153,6 +155,7 @@ var page = {
       $("#inputEmail").removeClass("hidden-class");
       $("#inputAvatar").removeClass("hidden-class");
       $("#loginSubmit").removeClass("hidden-class");
+      $("#signUp").addClass("hidden-class");
       $("#loginReturn").addClass("hidden-class");
     });
   },

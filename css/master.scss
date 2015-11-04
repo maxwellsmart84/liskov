@@ -6,17 +6,35 @@ h1 {
   text-align: center;
   text-shadow: 1px 1px 2px #005CB8;
 }
+form {
+  position: absolute;
+}
 //////////////// main classes ////////////////
 .col-md-8 {
-  background-color: red;
+  background-color: #D1D1E0;
+  margin-left: 200px;
+  overflow: hidden;
+  margin-bottom: 0;
+  height: 790px;
+  li{
+    img {
+      border-radius: 10em;
+      width: 14em;
+    }
+  }
+}
+.messageWriter {
+  position: absolute;
+  margin: 45% auto 0 32%;
+  background-color: darkseagreen;
 }
 ///////////////// side bar /////////////////
 .col-md-4 {
-  background-color: blue;
+  background-color: darkseagreen;
   position: absolute;
-  width: 12%;
+  width: 21%;
   min-height: 50em;
-  margin-left: 0;
+  margin-left: -67px;
 }
 ///////////////// Login /////////////////////
 #loginContainer {
