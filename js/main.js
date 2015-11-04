@@ -3,10 +3,6 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
-var userName = $("input[name='username']").val();
-var userEmail = $("input[name='email']").val();
-var userAvatar = $("input[name='avatar']").val();
-
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -65,11 +61,10 @@ var page = {
     $('form').on('submit', function(event) {
       event.preventDefault();
       var newMessage = {
-        avatar: userAvatar,
-        username: userName,
-        email: userEmail,
-        content: $('textarea').val(),
-        messageid: _id
+        avatar: $("input[name='avatar']").val(),
+        username: $("input[name='username']").val(),
+        email: $("input[name='email']").val(),
+        content: $('textarea').val()
       };
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
