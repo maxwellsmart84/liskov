@@ -6,7 +6,7 @@ $(document).ready(function () {
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
-
+var userNameData;
 ////////////////////////////// Main Functions //////////////////////
 var page = {
 
@@ -29,6 +29,7 @@ var page = {
     page.deleteMessage();
     page.returnLogin();
     page.newUserEvent();
+    page.loadSideBar();
   },
 
     // AJAX - LOAD OLD MESSAGES
@@ -124,6 +125,7 @@ var page = {
         event.preventDefault();
         var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
         $.ajax({
+          url: page.urlU,
           method:'GET',
           success: function (data){
             console.log("SUCCESS");
@@ -136,19 +138,29 @@ var page = {
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
                 userNameDataIter.status = true;
-                $.ajax({
-                  url:page.urlU,
-                  method:"PUT",
-                  data:userNameDataIter,
-                  success: function(data2){
-                  console.log('SUCCESS WE THINK')
-                  }
-                });
+                page.setStatusActive()
+                // else {
+                //   alert ("Username does not exist please create a new user");
+                // }
               }
             }
           }
         });
     });
+  },
+
+  setStatusActive: function (){
+    $.ajax({
+      url:page.urlU,
+      method:"PUT",
+      data:"status=true",
+      success: function(data){
+      console.log('SUCCESS!')
+      },
+      failure: function(data){
+        console.log("FAIL ON STATUS CHANGE");
+      }
+    })
   },
 
   newUserEvent: function(){
@@ -187,7 +199,6 @@ var page = {
            console.log("FAILURE!!!");
          }
        });
-       page.loadSideBar();
    });
  },
 
