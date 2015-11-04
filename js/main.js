@@ -29,6 +29,7 @@ var page = {
     page.deleteMessage();
     page.returnLogin();
     page.newUserEvent();
+    page.loadSideBar();
   },
 
     // AJAX - LOAD OLD MESSAGES
@@ -196,7 +197,6 @@ var page = {
            console.log("FAILURE!!!");
          }
        });
-       page.loadSideBar();
    });
  },
 
