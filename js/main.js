@@ -69,7 +69,7 @@ var page = {
       messageData.push(newMessage);
         var MessageTmpl = _.template(templates.message);
         var html = MessageTmpl(newMessage);
-        $('.col-md-8').prepend(html);
+        $('.col-md-8').append(html);
 
       // AJAX - SUBMIT NEW MESSAGE
       $.ajax ({
@@ -132,6 +132,7 @@ var page = {
               if (userNameData[i].username === userName){
                 $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
                 $(".col-md-4").removeClass("hidden-class");
+                $('.messageWriter').removeClass("hidden-class");
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
                 userNameDataIter.status = true;
