@@ -35,8 +35,20 @@ var page = {
       messageData.push(newMessage);
       page.loadTemplate($('.col-md-8'), newMessage, $('#test').html());
       $('textarea').val('');
-    });
 
+      // AJAX PUSH MESSAGE TO SERVER
+    $.ajax({
+      url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+      method: 'POST',
+      data: newMessage,
+      success: function() {
+        console.log("SUCCESS");
+      },
+      failure: function () {
+        console.log("FAILURE");
+      }
+    })
+});
     // DELETE ANY MESSAGE
     $('.col-md-8').on('click', 'button[type="submit"]', function () {
       $(this).parent('li').remove();
