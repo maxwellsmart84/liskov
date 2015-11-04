@@ -12,7 +12,6 @@ var page = {
 
   url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
 
-
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -96,6 +95,7 @@ var page = {
       page.deleteMessage(messageId);
       page.loadMessages();
       page.deleteMessage();
+    },
 
       $('.col-md-8').on('click', 'button[type="submit"]', function () {
         $(this).parent('li').remove();
