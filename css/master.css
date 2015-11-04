@@ -17,3 +17,8 @@ nav ul {
 .btn-default {
   background-color: rgba(185, 144, 151, 0.29);
 }
+
+h2 {
+  color: red;
+  text-align: center;
+}
