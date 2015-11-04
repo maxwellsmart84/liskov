@@ -1,19 +1,18 @@
-.navbar-default {
-  background-color: #787D8C
-}
+
 nav ul {
   list-style: none;
   display: inline-block;
-  background-color: lightblue;
   float: right;
 }
 .container-fluid {
   width: 100%;
 }
 
+.navbar-btn :hover{
+
+}
 .navbar-text {
   font-size: 16px;
-  color: #1907AD;
 }
 .btn-default {
   background-color: rgba(185, 144, 151, 0.29);

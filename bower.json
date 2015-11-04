@@ -1,6 +1,10 @@
 {
   "name": "liskov",
+<<<<<<< HEAD
   "homepage": "https://github.com/franklinfinger/liskov",
+=======
+  "homepage": "https://github.com/rogersgt/liskov",
+>>>>>>> 893d481ea7f1eb7323320976c024c553c4ea0887
   "description": "",
   "main": "",
   "moduleType": [],
