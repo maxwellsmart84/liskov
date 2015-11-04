@@ -25,11 +25,6 @@ var page = {
 
   },
 
-  loadSideBar: function() {
-    siderTempl = _.template(sideBarUser);
-
-  },
-
   createUser: function() {
 
   },
@@ -41,14 +36,22 @@ var page = {
   retrieveUser: function() {
     ///call this variable after the function runs///
     userObj = {};
+    allData = [];
 
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function(data) {
+        allData = data;
         userObj = data[uindex];
       }
     });
-  }
+  },
+
+  loadSideBar: function() {
+    page.retrieveUser();
+    siderTempl = _.template(templates.sideBarUser);
+    console.log(allData);
+  },
 
 };
