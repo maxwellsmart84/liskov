@@ -24,8 +24,8 @@ var page = {
   },
 
   initEvents: function () {
-    submitMessage();
-    deleteMessage();
+    page.submitMessage();
+    page.deleteMessage();
   },
 
     // SUBMIT NEW MESSAGE
@@ -54,17 +54,14 @@ var page = {
           console.log("FAILURE");
         }
       })
-     }
     });
-
+  },
     // DELETE ANY MESSAGE
-    deleteMessage: function () {
+  deleteMessage: function() {
     $('.col-md-8').on('click', 'button[type="submit"]', function () {
       $(this).parent('li').remove();
-      }
     });
-
-
+  },
 
     // FUNCTION TO LOAD TEMPLATES
   loadTemplate: function ($el, data, tmpl) {
@@ -120,21 +117,20 @@ var page = {
   retrieveUser: function() {
     ///call this variable after the function runs///
     userObj = {};
+    var allUsers;
 
     $.ajax({
       url: page.url,
       method: 'GET',
       success: function(data) {
-        console.log(data);
+        allUsers = data;
         userObj = data[uindex];
       }
     });
   },
 
   loadSideBar: function() {
-    page.retrieveUser();
-    siderTempl = _.template(templates.sideBarUser);
-    console.log(data);
+
   },
 
 };
