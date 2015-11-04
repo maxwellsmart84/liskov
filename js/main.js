@@ -72,6 +72,34 @@ var page = {
     $el.prepend(html);
   },
 
+  returnLogin: function (){
+    $(".container").on("click", "#loginReturn", function(event){
+        event.preventDefault;
+        var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
+        $.ajax({
+          method:'GET',
+          success: function (data){
+            userNameData = data;
+            for (var i= 0; i < userNameData.length; i++){
+              if (userNameData[i].username === userName){
+                $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
+                $(".col-md-4").removeClass("hidden-class");
+                $("#loginContainer").addClass("hidden-class");
+                var userNameDataIter = userNameData[i];
+                userNameDataIter.status = true;
+                $.ajax({
+                  url:page.urlU,
+                  method:"PUT",
+                  data:userNameDataIter,
+                  success: function(data2){
+                  console.log('SUCCESS WE THINK')
+                  }
+                });
+              }
+          }
+        });
+    });
+  },
 
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
@@ -89,7 +117,7 @@ var page = {
        avatar: userAvatar,
      });
        $.ajax({     //AJAX PUSH TO SERVER
-         url: page.url,
+         url: page.urlU,
          method:"POST",
          data: userLoginAdd,
          success: function (data){
@@ -101,7 +129,7 @@ var page = {
        });
    });
  },
- 
+
   loadSideBar: function() {
 
   },

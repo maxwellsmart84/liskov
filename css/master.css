@@ -17,6 +17,8 @@ body {
   position: relative;
   left: 300px;
   top: 150px; }
+  #loginContainer a {
+    float: right; }
 
 .hidden-class {
   display: none; }
