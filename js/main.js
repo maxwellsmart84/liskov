@@ -15,6 +15,8 @@ uindex = 0;
 var page = {
 
   url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
+  urlU: "http://tiny-tiny.herokuapp.com/collections/chatorexU",
+  urlM: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
 
   init: function () {
     page.initStyling();
@@ -158,6 +160,7 @@ var page = {
       $("#inputEmail").removeClass("hidden-class");
       $("#inputAvatar").removeClass("hidden-class");
       $("#loginSubmit").removeClass("hidden-class");
+      $("#signUp").addClass("hidden-class");
       $("#loginReturn").addClass("hidden-class");
     });
   },
