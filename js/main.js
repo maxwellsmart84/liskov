@@ -44,17 +44,17 @@ var page = {
             };
             var html = MessageTmpl(oldMessages);
             $('.col-md-8').prepend(html);
-          });
+          })
         },
         failure: function () {
-          console.log("FAILURE");
+          console.log("FAILURE")
         },
-      });
+      })
     },
 
     // DOM - SUBMIT NEW MESSAGE
     submitMessage: function () {
-    var messageData = [];
+    var messageData = []
     $('form').on('submit', function(event) {
       event.preventDefault();
       var newMessage = {
@@ -78,7 +78,7 @@ var page = {
         failure: function () {
           console.log("FAILURE");
         },
-      });
+      })
     });
   },
     // DELETE ANY MESSAGE
