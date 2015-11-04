@@ -12,6 +12,7 @@ var page = {
 
   url: "http://tiny-tiny.herokuapp.com/collections/chatorex",
 
+
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -19,7 +20,7 @@ var page = {
   },
 
   initStyling: function () {
-
+    page.loadMessages();
   },
 
   initEvents: function () {
@@ -27,7 +28,31 @@ var page = {
     page.deleteMessage();
   },
 
-    // SUBMIT NEW MESSAGE
+    // AJAX - LOAD OLD MESSAGES
+    loadMessages: function() {
+      $.ajax({
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
+        method: 'GET',
+        success: function(mData) {
+          var MessageTmpl = _.template(templates.message);
+          _.each(mData, function (el, idx, arr) {
+            var oldMessages = {
+              avatar: el.avatar,
+              username: el.username,
+              content: el.content,
+              messageid: el._id
+            };
+            var html = MessageTmpl(oldMessages);
+            $('.col-md-8').prepend(html);
+          })
+        },
+        failure: function () {
+          console.log("FAILURE")
+        },
+      })
+    },
+
+    // DOM - SUBMIT NEW MESSAGE
     submitMessage: function () {
     var messageData = []
     $('form').on('submit', function(event) {
@@ -42,9 +67,9 @@ var page = {
         var html = MessageTmpl(newMessage);
         $('.col-md-8').prepend(html);
 
-      // AJAX PUSH MESSAGE TO SERVER
+      // AJAX - SUBMIT NEW MESSAGE
       $.ajax ({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
         method: 'POST',
         data: newMessage,
         success: function() {
@@ -63,20 +88,31 @@ var page = {
     });
   },
 
-    // DELETE ANY MESSAGE
-    deleteMessage: function () {
+    // DOM DELETE ANY MESSAGE
+    deleteEventMessage: function (event) {
+      event.preventDefault();
+      var messageId = $(this).closest('li').data('messageid');
+      $(this).closest('li').remove();
+      page.deleteMessage(messageId);
+      page.loadMessages();
+      page.deleteMessage();
+
       $('.col-md-8').on('click', 'button[type="submit"]', function () {
         $(this).parent('li').remove();
       });
+
+      deleteMessage: function () {
+      $.ajax ({
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
+        method: 'DELETE',
+        success: function (res) {
+          console.log("SUCCESS"),
+        },
+        failure: function () {
+        },
+      })
+
     },
-
-    // FUNCTION TO LOAD TEMPLATES
-  loadTemplate: function ($el, data, tmpl) {
-    var template = _.template(tmpl);
-    var html = template(data);
-    $el.prepend(html);
-  },
-
 
   loginSub: function(){
    $(".container").on("click", "#loginSubmit", function(event){
