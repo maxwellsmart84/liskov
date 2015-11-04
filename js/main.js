@@ -23,6 +23,44 @@ var page = {
 
   initEvents: function () {
     page.loginSub();
+    page.submitMessage();
+    page.deleteMessage();
+  },
+
+    // SUBMIT NEW MESSAGE
+    submitMessage: function () {
+    var messageData = [];
+    $('form').on('submit', function(event) {
+      event.preventDefault();
+      var newMessage = {
+        avatar: "http://www.fillmurray.com/200/300",
+        username: "Bill Murray",
+        content: $('textarea').val(),
+      };
+      messageData.push(newMessage);
+        var MessageTmpl = _.template(templates.message);
+        var html = MessageTmpl(newMessage);
+        $('.col-md-8').prepend(html);
+
+      // AJAX PUSH MESSAGE TO SERVER
+      $.ajax ({
+        url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+        method: 'POST',
+        data: newMessage,
+        success: function() {
+          console.log("SUCCESS");
+        },
+        failure: function () {
+          console.log("FAILURE");
+        },
+      });
+    });
+  },
+    // DELETE ANY MESSAGE
+  deleteMessage: function() {
+    $('.col-md-8').on('click', 'button[type="submit"]', function () {
+      $(this).parent('li').remove();
+    });
 
   },
 
@@ -52,8 +90,10 @@ var page = {
            console.log("FAILURE!!!");
          }
        });
+       page.loadSideBar();
    });
  },
+
 
 
   createUser: function() {
@@ -61,14 +101,27 @@ var page = {
 
   },
 
-  deleteUser: function() {
+  deleteUser: function() {},
 
-  },
+ retrieveUser: function() {
+   ///call this variable after the function runs///
+   userObj = {};
 
-  retrieveUser: function() {
+   $.ajax({
+     url: page.url,
+     method: 'GET',
+     success: function(data) {
+       userObj = data[uindex];
+     }
+   });
+ },
+
+  loadSideBar: function() {
     ///call this variable after the function runs///
     userObj = {};
     allData = [];
+
+    allUsers = [];
 
     $.ajax({
       url: page.url,
@@ -76,6 +129,13 @@ var page = {
       success: function(data) {
         allData = data;
         userObj = data[uindex];
+        allUsers = data;
+        var sideU = _.template(templates.sideBarUser);
+
+        for (i = 0; i < allUsers.length; i++) {
+          sider = sideU(allUsers[i]);
+          $('#sideList').append(sider);
+        }
       }
     });
   },
@@ -84,7 +144,15 @@ var page = {
     page.retrieveUser();
     siderTempl = _.template(templates.sideBarUser);
     console.log(allData);
+  createUser: function() {
+
+
   },
 
-  
+  deleteUser: function() {
+
+
+  },
+
+
 };
