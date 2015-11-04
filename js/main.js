@@ -128,7 +128,7 @@ var page = {
           url: page.urlU,
           method:'GET',
           success: function (data){
-            console.log("SUCCESS");
+            console.log("SUCCESS" + data);
             userNameData = data;
             for (var i= 0; i < userNameData.length; i++){
               if (userNameData[i].username === userName){
@@ -150,15 +150,16 @@ var page = {
   },
 
   setStatusActive: function (){
+    var
     $.ajax({
-      url:page.urlU,
+      url:page.urlU + "/" + ,
       method:"PUT",
       data:"status=true",
       success: function(data){
-      console.log('SUCCESS!')
+      console.log('SUCCESS'+ data);
       },
       failure: function(data){
-        console.log("FAIL ON STATUS CHANGE");
+        console.log("FAIL ON STATUS CHANGE" + data);
       }
     })
   },
