@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 ////////////////////////////// Global Variables ////////////////////
 
+
 // index number for retrieving json objects //
 // redefine this for functions //
 uindex = 0;
@@ -22,6 +23,47 @@ var page = {
   },
 
   initEvents: function () {
+    // SUBMIT NEW MESSAGE
+    var messageData = []
+    $('form').on('submit', function(event) {
+      event.preventDefault();
+      var newMessage = {
+        avatar: "http://www.fillmurray.com/200/300",
+        username: "Bill Murray",
+        content: $('textarea').val(),
+      };
+      messageData.push(newMessage);
+      page.loadTemplate($('.col-md-8'), newMessage, $('#test').html());
+      $('textarea').val('');
+
+      // AJAX PUSH MESSAGE TO SERVER
+    $.ajax({
+      url: "http://tiny-tiny.herokuapp.com/collections/chatorex/messages",
+      method: 'POST',
+      data: newMessage,
+      success: function() {
+        console.log("SUCCESS");
+      },
+      failure: function () {
+        console.log("FAILURE");
+      }
+    })
+});
+    // DELETE ANY MESSAGE
+    $('.col-md-8').on('click', 'button[type="submit"]', function () {
+      $(this).parent('li').remove();
+    });
+
+  },
+
+    // FUNCTION TO LOAD TEMPLATES
+  loadTemplate: function ($el, data, tmpl) {
+    var template = _.template(tmpl);
+    var html = template(data);
+    $el.prepend(html);
+  },
+
+
     page.loginSub();
 
   },
@@ -58,6 +100,7 @@ var page = {
   loadSideBar: function() {
 
   },
+
 
   createUser: function() {
 
