@@ -11,9 +11,7 @@ form {
 .col-md-8 {
   background-color: #D1D1E0;
   margin-left: 200px;
-  overflow: hidden;
-  margin-bottom: 0;
-  height: 790px; }
+  margin-bottom: 0; }
   .col-md-8 li img {
     border-radius: 10em;
     width: 14em; }
@@ -49,6 +47,9 @@ form {
   background-color: #005CB8;
   width: 50%;
   color: white; }
+
+.navbar-right {
+  margin: none; }
 
 #loginSubmit {
   margin: 5% 5% 1% 25%;
