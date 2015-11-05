@@ -128,7 +128,7 @@ var page = {
           url: page.urlU,
           method:'GET',
           success: function (data){
-            console.log("SUCCESS");
+            console.log("SUCCESS" + data);
             userNameData = data;
             for (var i= 0; i < userNameData.length; i++){
               if (userNameData[i].username === userName){
@@ -139,7 +139,7 @@ var page = {
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
                 userNameDataIter.status = true;
-                page.setStatusActive()
+                page.setStatusActive(userNameData[i]._id);
                 // else {
                 //   alert ("Username does not exist please create a new user");
                 // }
@@ -150,16 +150,16 @@ var page = {
     });
   },
 
-  setStatusActive: function (){
+  setStatusActive: function (idNumber){
     $.ajax({
-      url:page.urlU,
+      url:page.urlU + "/" + idNumber,
       method:"PUT",
       data:"status=true",
       success: function(data){
-      console.log('SUCCESS!')
+      console.log('SUCCESS'+ data);
       },
       failure: function(data){
-        console.log("FAIL ON STATUS CHANGE");
+        console.log("FAIL ON STATUS CHANGE" + data);
       }
     })
   },
