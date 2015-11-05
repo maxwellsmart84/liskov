@@ -21,7 +21,7 @@ var page = {
   },
 
   initStyling: function () {
-    page.loadMessages();
+
   },
 
   initEvents: function () {
@@ -31,33 +31,64 @@ var page = {
     page.newUserEvent();
     page.loadSideBar();
     page.loginSub();
+    page.loadMessages();
+    page.loadSideBar();
   },
 
 
     // AJAX - LOAD OLD MESSAGES
     loadMessages: function() {
-      $.ajax({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
-        method: 'GET',
-        success: function(mData) {
-          var MessageTmpl = _.template(templates.message);
-          _.each(mData, function (el, idx, arr) {
-            var oldMessages = {
-              avatar: el.avatar,
-              username: el.username,
-              content: el.content,
-              email: el.email,
-              messageid: el._id
-            };
-            var html = MessageTmpl(oldMessages);
-            $('.col-md-8').append(html);
-          })
-        },
-        failure: function () {
-          console.log("FAILURE")
-        },
-      })
+      setInterval(function() {
+        var messageArray = [];
+        $.ajax({
+          url: page.urlM,
+          method: 'GET',
+          success: function(mData) {
+            var MessageTmpl = _.template(templates.message);
+            _.each(mData, function (el, idx, arr) {
+              var oldMessages = {
+                avatar: el.avatar,
+                username: el.username,
+                content: el.content,
+                messageid: el._id
+              };
+              var html = MessageTmpl(oldMessages);
+              messageArray.push(html);
+              //messageArray.reverse();
+              messagesString = messageArray.join("");
+              $('.col-md-8').html(messagesString);
+            });
+          },
+          failure: function () {
+            console.log("FAILURE")
+          },
+        });
+      }, 100);
     },
+
+    // getLastMessage: function() {
+    // //  setInterval(function(){
+    //     $.ajax({
+    //       url: page.urlM,
+    //       method: 'GET',
+    //       success: function(Mdata) {
+    //        idxL = Mdata.length -1;
+    //        lastMObj = Mdata[idxL];
+    //
+    //
+    //        lastMessage = {
+    //          username: lastMObj.username,
+    //          avatar: lastMObj.avatar,
+    //          content: lastMObj.content,
+    //          messageid: lastMObj._id,
+    //        };
+    //       msgTmpl = _.template(templates.message);
+    //       lastMes = msgTmpl(lastMessage);
+    //       $('.col-md-8').prepend(lastMes);
+    //       }
+    //     });
+    // //  }, 100);
+    // },
 
     // DOM - SUBMIT NEW MESSAGE
     submitMessage: function () {
@@ -76,7 +107,7 @@ var page = {
         data: newMessage,
         success: function() {
           console.log("SUCCESS");
-          page.loadMessages();
+          //page.loadMessages();
         },
         failure: function () {
           console.log("FAILURE");
@@ -95,7 +126,7 @@ var page = {
        url: page.urlM + '/' + deleteID,
        method: 'DELETE',
        success: function() {
-         console.log(deleteID);
+         //console.log(deleteID);
          document.getElementById(deleteID).remove();
        },
        failure: function() {
@@ -233,31 +264,36 @@ var page = {
  },
 
   loadSideBar: function() {
-    ///call this variable after the function runs///
-    allUsers = [];
+    setInterval(function() {
+      ///call this variable after the function runs///
+      allUsers = [];
+      allUsersHTML = [];
+      $.ajax({
+        url: page.urlU,
+        method: 'GET',
+        success: function(data) {
+          allUsers = data;
+          var sideU = _.template(templates.sideBarUser);
 
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function(data) {
-        allUsers = data;
-        var sideU = _.template(templates.sideBarUser);
-
-        for (i = 0; i < allUsers.length; i++) {
-          sider = sideU(allUsers[i]);
-          $('#sideList').append(sider);
+          for (i = 0; i < allUsers.length; i++) {
+            sider = sideU(allUsers[i]);
+            allUsersHTML.push(sider);
+            usersString = allUsersHTML.join("");
+            $('#sideList').html(usersString);
+          }
         }
-      }
-    });
-  },
-
-  createUser: function() {
-
-
+      });
+    }, 500);
   },
 
   deleteUser: function() {
-
-  },
+        $.ajax({
+          url: 'http://tiny-tiny.herokuapp.com/collections/chatorexU/563b67ae6ccbec030052cbd8',
+          method: 'DELETE',
+          success: function(){
+            console.log("deleted");
+          }
+        });
+  }
 
 };
