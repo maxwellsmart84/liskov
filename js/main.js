@@ -273,7 +273,7 @@ var page = {
 
   deleteUser: function() {
         $.ajax({
-          url: 'http://tiny-tiny.herokuapp.com/collections/chatorexU/563b63cb6ccbec030052cbae',
+          url: 'http://tiny-tiny.herokuapp.com/collections/chatorexU/563b67ae6ccbec030052cbd8',
           method: 'DELETE',
           success: function(){
             console.log("deleted");
