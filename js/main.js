@@ -32,56 +32,60 @@ var page = {
     page.loadSideBar();
     page.loadMessages();
     page.loadSideBar();
-    page.getLastMessage();
   },
 
     // AJAX - LOAD OLD MESSAGES
     loadMessages: function() {
-      $.ajax({
-        url: "http://tiny-tiny.herokuapp.com/collections/chatorexM",
-        method: 'GET',
-        success: function(mData) {
-          var MessageTmpl = _.template(templates.message);
-          _.each(mData, function (el, idx, arr) {
-            var oldMessages = {
-              avatar: el.avatar,
-              username: el.username,
-              content: el.content,
-              messageid: el._id
-            };
-            var html = MessageTmpl(oldMessages);
-            $('.col-md-8').append(html);
-          });
-        },
-        failure: function () {
-          console.log("FAILURE")
-        },
-      })
-    },
-
-    getLastMessage: function() {
-    //  setInterval(function(){
+      setInterval(function() {
+        var messageArray = [];
         $.ajax({
           url: page.urlM,
           method: 'GET',
-          success: function(Mdata) {
-           idxL = Mdata.length -1;
-           lastMObj = Mdata[idxL];
-
-
-           lastMessage = {
-             username: lastMObj.username,
-             avatar: lastMObj.avatar,
-             content: lastMObj.content,
-             messageid: lastMObj._id,
-           };
-          msgTmpl = _.template(templates.message);
-          lastMes = msgTmpl(lastMessage);
-          $('.col-md-8').prepend(lastMes);
-          }
+          success: function(mData) {
+            var MessageTmpl = _.template(templates.message);
+            _.each(mData, function (el, idx, arr) {
+              var oldMessages = {
+                avatar: el.avatar,
+                username: el.username,
+                content: el.content,
+                messageid: el._id
+              };
+              var html = MessageTmpl(oldMessages);
+              messageArray.push(html);
+              messagesString = messageArray.join("");
+              $('.col-md-8').html(messagesString);
+            });
+          },
+          failure: function () {
+            console.log("FAILURE")
+          },
         });
-    //  }, 100);
+      }, 500);
     },
+
+    // getLastMessage: function() {
+    // //  setInterval(function(){
+    //     $.ajax({
+    //       url: page.urlM,
+    //       method: 'GET',
+    //       success: function(Mdata) {
+    //        idxL = Mdata.length -1;
+    //        lastMObj = Mdata[idxL];
+    //
+    //
+    //        lastMessage = {
+    //          username: lastMObj.username,
+    //          avatar: lastMObj.avatar,
+    //          content: lastMObj.content,
+    //          messageid: lastMObj._id,
+    //        };
+    //       msgTmpl = _.template(templates.message);
+    //       lastMes = msgTmpl(lastMessage);
+    //       $('.col-md-8').prepend(lastMes);
+    //       }
+    //     });
+    // //  }, 100);
+    // },
 
     // DOM - SUBMIT NEW MESSAGE
     submitMessage: function () {
