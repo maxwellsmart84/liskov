@@ -30,6 +30,9 @@ var page = {
     page.returnLogin();
     page.newUserEvent();
     page.loadSideBar();
+    page.loadMessages();
+    page.loadSideBar();
+    page.getLastMessage();
   },
 
     // AJAX - LOAD OLD MESSAGES
@@ -48,12 +51,36 @@ var page = {
             };
             var html = MessageTmpl(oldMessages);
             $('.col-md-8').append(html);
-          })
+          });
         },
         failure: function () {
           console.log("FAILURE")
         },
       })
+    },
+
+    getLastMessage: function() {
+    //  setInterval(function(){
+        $.ajax({
+          url: page.urlM,
+          method: 'GET',
+          success: function(Mdata) {
+           idxL = Mdata.length -1;
+           lastMObj = Mdata[idxL];
+
+
+           lastMessage = {
+             username: lastMObj.username,
+             avatar: lastMObj.avatar,
+             content: lastMObj.content,
+             messageid: lastMObj._id,
+           };
+          msgTmpl = _.template(templates.message);
+          lastMes = msgTmpl(lastMessage);
+          $('.col-md-8').prepend(lastMes);
+          }
+        });
+    //  }, 100);
     },
 
     // DOM - SUBMIT NEW MESSAGE
@@ -73,7 +100,7 @@ var page = {
         data: newMessage,
         success: function() {
           console.log("SUCCESS");
-          page.loadMessages();
+          //page.loadMessages();
         },
         failure: function () {
           console.log("FAILURE");
