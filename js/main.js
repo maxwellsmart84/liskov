@@ -52,6 +52,7 @@ var page = {
               };
               var html = MessageTmpl(oldMessages);
               messageArray.push(html);
+              //messageArray.reverse();
               messagesString = messageArray.join("");
               $('.col-md-8').html(messagesString);
             });
@@ -60,7 +61,7 @@ var page = {
             console.log("FAILURE")
           },
         });
-      }, 500);
+      }, 100);
     },
 
     // getLastMessage: function() {
@@ -123,7 +124,7 @@ var page = {
        url: page.urlM + '/' + deleteID,
        method: 'DELETE',
        success: function() {
-         console.log(deleteID);
+         //console.log(deleteID);
          document.getElementById(deleteID).remove();
        },
        failure: function() {
@@ -248,31 +249,36 @@ var page = {
  },
 
   loadSideBar: function() {
-    ///call this variable after the function runs///
-    allUsers = [];
+    setInterval(function() {
+      ///call this variable after the function runs///
+      allUsers = [];
+      allUsersHTML = [];
+      $.ajax({
+        url: page.urlU,
+        method: 'GET',
+        success: function(data) {
+          allUsers = data;
+          var sideU = _.template(templates.sideBarUser);
 
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function(data) {
-        allUsers = data;
-        var sideU = _.template(templates.sideBarUser);
-
-        for (i = 0; i < allUsers.length; i++) {
-          sider = sideU(allUsers[i]);
-          $('#sideList').append(sider);
+          for (i = 0; i < allUsers.length; i++) {
+            sider = sideU(allUsers[i]);
+            allUsersHTML.push(sider);
+            usersString = allUsersHTML.join("");
+            $('#sideList').html(usersString);
+          }
         }
-      }
-    });
-  },
-
-  createUser: function() {
-
-
+      });
+    }, 500);
   },
 
   deleteUser: function() {
-
-  },
+        $.ajax({
+          url: 'http://tiny-tiny.herokuapp.com/collections/chatorexU/563b63cb6ccbec030052cbae',
+          method: 'DELETE',
+          success: function(){
+            console.log("deleted");
+          }
+        });
+  }
 
 };
