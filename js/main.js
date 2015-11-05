@@ -139,7 +139,7 @@ var page = {
                 $("#loginContainer").addClass("hidden-class");
                 var userNameDataIter = userNameData[i];
                 userNameDataIter.status = true;
-                page.setStatusActive()
+                page.setStatusActive(userNameData[i]._id);
                 // else {
                 //   alert ("Username does not exist please create a new user");
                 // }
@@ -150,9 +150,9 @@ var page = {
     });
   },
 
-  setStatusActive: function (){
+  setStatusActive: function (idNumber){
     $.ajax({
-      url:page.urlU, 
+      url:page.urlU + "/" + idNumber,
       method:"PUT",
       data:"status=true",
       success: function(data){
