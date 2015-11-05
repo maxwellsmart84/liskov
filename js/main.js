@@ -17,7 +17,7 @@ var page = {
   init: function () {
     page.initStyling();
     page.initEvents();
-    page.loginSub();
+
   },
 
   initStyling: function () {
@@ -30,7 +30,9 @@ var page = {
     page.returnLogin();
     page.newUserEvent();
     page.loadSideBar();
+    page.loginSub();
   },
+
 
     // AJAX - LOAD OLD MESSAGES
     loadMessages: function() {
@@ -44,6 +46,7 @@ var page = {
               avatar: el.avatar,
               username: el.username,
               content: el.content,
+              email: el.email,
               messageid: el._id
             };
             var html = MessageTmpl(oldMessages);
@@ -164,6 +167,17 @@ var page = {
     })
   },
 
+  deleteButtonAppear: function (idNumber){
+      $.ajax({
+      url:page.urlU
+      method:"GET",
+      success: function (data){
+        console.log('SUCCESS' + data);
+        if (data._id ===  )
+      },
+    })
+  },
+
   newUserEvent: function(){
     $(".container").on("click", "#signUp", function(event){
       $("#inputEmail").removeClass("hidden-class");
@@ -181,6 +195,8 @@ var page = {
      $(".col-md-8").removeClass("hidden-class"); //REMOVES ALL HIDDEN CLASSES FROM CHATBOX
      $(".col-md-4").removeClass("hidden-class");
      $("#loginContainer").addClass("hidden-class");
+     $(".navbar-default").removeClass("hidden-class");
+     $(".messageWriter").removeClass("hidden-class");
      var userName = $("input[name='username']").val();//USER INPUT COLLECTION STRINGIFIED
      var userEmail = $("input[name='email']").val();
      var userAvatar = $("input[name='avatar']").val();

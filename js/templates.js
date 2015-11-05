@@ -5,6 +5,6 @@ var templates = {
   message: [
     "<li id='<%= messageid %>'><img src='<%= avatar %>' /><h3><%= username %></h3>",
     "<p><%= content %></p>",
-    "<button class='delete' type='button'>X</button></li>"
+    "<button class='delete hidden-class' type='button'>Delete</button></li>"
   ].join("")
 };
